@@ -1,0 +1,67 @@
+# Builds, tests and publishes the output to the Play store internal track.
+name: Build & Espresso Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - uses: burrunan/gradle-cache-action@v1
+        name: Gradle cache
+      - name: Assemble
+        run: ./gradlew assembleDebug
+        timeout-minutes: 10
+
+  espresso-test:
+    name: "Espresso test"
+    runs-on: macos-latest
+    needs: build
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - uses: burrunan/gradle-cache-action@v1
+        name: Gradle cache
+      - name: Espresso Test
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          script: |
+            ./gradlew createDebugCoverageReport
+          profile: pixel_3a
+          target: google_apis
+          disable-animations: true
+          arch: x86_64
+          sdcard-path-or-size: 1000M
+      - name: Upload connected test result artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: espresso-test-reports
+          path: app/build/reports/androidTests/connected/
+        if: always()
+      - name: Upload connected test XML
+        uses: actions/upload-artifact@v2
+        with:
+          name: espresso-test-xml
+          path: app/build/outputs/androidTest-results/connected/*.xml
+      - name: Upload connected test coverage artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: espresso-test-coverage
+          path: app/build/reports/coverage/androidTest/debug/
+        if: always()
