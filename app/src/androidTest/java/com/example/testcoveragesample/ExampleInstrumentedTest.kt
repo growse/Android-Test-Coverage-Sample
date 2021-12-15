@@ -1,11 +1,9 @@
 package com.example.testcoveragesample
 
-import android.Manifest
 import androidx.test.core.app.launchActivity
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import androidx.test.rule.GrantPermissionRule
 import org.junit.Assert.assertEquals
 import org.junit.Rule
 import org.junit.Test
@@ -18,12 +16,6 @@ import org.junit.runner.RunWith
  */
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
-    @get:Rule
-    var runtimePermissionRule: GrantPermissionRule =
-        GrantPermissionRule.grant(
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )
-
     @get:Rule
     val scenarioRule: ActivityScenarioRule<MainActivity> =
         ActivityScenarioRule(MainActivity::class.java)

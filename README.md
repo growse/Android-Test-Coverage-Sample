@@ -2,6 +2,16 @@
 
 This is a simple Android app taken from the default Android Studio "Blank Activity" template showing how instrumented test coverage data and reports can be generated whilst using the AndroidX Test Orchestrator and other desirable features such as `clearPackageData`. This targets the latest Android SDK and AGP version.
 
+## Android >=30
+
+1. You need AGP > 7.1.0. Currently, this is in beta.
+2. `androidTestUtil` dependency on `androidx.test.services:test-services`
+3. `useTestStorageService` to `"true"` (also, optionally `clearPackageData` to `"true"` if you want actual test isolation)
+
+`./gradlew clean createDebugCoverageReport` now generates a coverage report in app/build/reports/coverage/androidTest/debug/index.html showing 100% coverage on an emulator running Android 31.
+
+## Android <30
+
 ## What do I need to make this work in my app?
 
 There's a number of distinct things that need to be done / set in order for this to work. Missing any one of these will cause issues / failures / no coverage output.
@@ -50,7 +60,7 @@ var runtimePermissionRule: GrantPermissionRule =
     )
 ```
 
-## How do I reproduce this?
+# How do I reproduce this?
 
 Clone the app, and `./gradlew createDebugCoverageReport` should produce a report in `app/build/reports/coverage/androidTest/debug/` showing 100% test coverage.
 
@@ -58,7 +68,7 @@ Clone the app, and `./gradlew createDebugCoverageReport` should produce a report
 
 ## Current issues / Todo
 
-- [ ] Only works testing on devices of <=29. Fix for using >=30 which use scoped storage
+- [X] Only works testing on devices of <=29. Fix for using >=30 which use scoped storage
 
 ## Related Google Bug Tracker Issues:
 
