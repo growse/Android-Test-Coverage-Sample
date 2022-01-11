@@ -1,7 +1,8 @@
+---
 # Builds, tests and publishes the output to the Play store internal track.
 name: Build & Espresso Test
 
-on:
+"on":
   push:
     branches:
       - main
@@ -29,6 +30,9 @@ jobs:
     name: "Espresso test"
     runs-on: macos-latest
     needs: build
+    strategy:
+      matrix:
+        android-api: [29, 31]
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK 11
@@ -40,7 +44,7 @@ jobs:
       - name: Espresso Test
         uses: reactivecircus/android-emulator-runner@v2
         with:
-          api-level: 29
+          api-level: ${{ matrix.android-api }}
           script: |
             ./gradlew createDebugCoverageReport
           profile: pixel_3a
