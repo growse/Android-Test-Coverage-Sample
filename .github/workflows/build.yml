@@ -23,7 +23,7 @@ jobs:
       - uses: burrunan/gradle-cache-action@v1
         name: Gradle cache
       - name: Assemble
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleDebug --no-daemon
         timeout-minutes: 10
 
   espresso-test:
@@ -46,7 +46,7 @@ jobs:
         with:
           api-level: ${{ matrix.android-api }}
           script: |
-            ./gradlew createDebugCoverageReport
+            ./gradlew createDebugCoverageReport --no-daemon
           profile: pixel_3a
           target: google_apis
           disable-animations: true
