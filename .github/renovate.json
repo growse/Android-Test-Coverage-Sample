@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "config:base",
+    "config:disableRateLimiting",
+    "config:rebaseStalePrs",
+    "config:disableDependencyDashboard"
+  ],
+  "assignees": [
+    "growse"
+  ]
+}
