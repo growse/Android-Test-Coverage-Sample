@@ -3,7 +3,7 @@ plugins {
     kotlin("android")
 }
 android {
-    compileSdk = 31
+    compileSdk = 32
 
     defaultConfig {
         applicationId = "com.example.testcoveragesample"
