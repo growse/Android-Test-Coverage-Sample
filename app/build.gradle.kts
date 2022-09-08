@@ -44,8 +44,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -55,7 +55,7 @@ android {
         animationsDisabled = true
     }
     testCoverage {
-        jacocoVersion = "0.8.7"
+        jacocoVersion = "0.8.8"
     }
 }
 
@@ -69,7 +69,7 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
 
     androidTestImplementation("androidx.test:rules:1.4.0")
-    androidTestImplementation("androidx.test:core:1.4.0")
+    debugImplementation("androidx.test:core-ktx:1.4.0")
     androidTestImplementation("androidx.test:core-ktx:1.4.0")
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.3")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
