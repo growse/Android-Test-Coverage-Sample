@@ -3,11 +3,13 @@ queue_rules:
   - name: default
     conditions:
       - "check-success=Build"
+      - "check-success=Espresso Test"
 
 pull_request_rules:
   - name: Automatic merge on approval
     conditions:
       - "check-success=Build"
+      - "check-success=Espresso Test"
     actions:
       queue:
         name: default
