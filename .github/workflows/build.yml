@@ -45,7 +45,7 @@ jobs:
         name: Gradle cache
       - name: Espresso Test
         uses: reactivecircus/android-emulator-runner@v2
-        timeout-minutes: 15
+        timeout-minutes: 20
         with:
           api-level: ${{ matrix.android-api }}
           script: |
