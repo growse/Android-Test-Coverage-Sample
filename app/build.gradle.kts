@@ -55,9 +55,6 @@ android {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
         animationsDisabled = true
     }
-    testCoverage {
-        jacocoVersion = "0.8.8"
-    }
 }
 
 dependencies {
