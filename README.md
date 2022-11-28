@@ -4,11 +4,11 @@ This is a simple Android app taken from the default Android Studio "Blank Activi
 
 ## Android >=30
 
-1. You need AGP > 7.1.0. Currently, this is in beta.
+1. You need AGP > 7.1.0
 2. `androidTestUtil` dependency on `androidx.test.services:test-services`
 3. `useTestStorageService` to `"true"` (also, optionally `clearPackageData` to `"true"` if you want actual test isolation)
 
-`./gradlew clean createDebugCoverageReport` now generates a coverage report in app/build/reports/coverage/androidTest/debug/index.html showing 100% coverage on an emulator running Android 31.
+`./gradlew clean createDebugCoverageReport` now generates a coverage report in app/build/reports/coverage/androidTest/debug/index.html showing about 65% coverage on an emulator running Android 31. Some code is deliberately not covered.
 
 ## Android <30
 
