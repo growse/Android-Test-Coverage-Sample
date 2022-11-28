@@ -31,15 +31,13 @@ android {
     }
     buildTypes {
         named("debug") {
-            isTestCoverageEnabled = true
+            enableAndroidTestCoverage = true
+            enableUnitTestCoverage = true
         }
     }
     testOptions {
         execution = "ANDROIDX_TEST_ORCHESTRATOR"
         animationsDisabled = true
-    }
-    testCoverage {
-        jacocoVersion = "0.8.7"
     }
 }
 ```
