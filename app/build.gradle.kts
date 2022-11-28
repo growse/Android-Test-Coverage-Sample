@@ -40,7 +40,8 @@ android {
                     file("proguard-rules.pro")
                 )
             )
-            isTestCoverageEnabled = true
+            enableAndroidTestCoverage = true
+            enableUnitTestCoverage = true
         }
     }
     compileOptions {
