@@ -72,6 +72,6 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.4")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
 
-    androidTestUtil("androidx.test:orchestrator:1.4.1")
+    androidTestUtil("androidx.test:orchestrator:1.4.2")
     androidTestUtil("androidx.test.services:test-services:1.4.2")
 }
