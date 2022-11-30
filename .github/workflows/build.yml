@@ -33,7 +33,7 @@ jobs:
     needs: build
     strategy:
       matrix:
-        android-api: [21, 29, 30, 31]
+        android-api: [21, 29, 30, 31, 32, 33]
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
