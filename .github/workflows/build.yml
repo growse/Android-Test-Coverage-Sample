@@ -13,7 +13,7 @@ name: Build & Espresso Test
 jobs:
   build:
     name: Build
-    runs-on: macos-latest
+    runs-on: self-hosted
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -29,7 +29,7 @@ jobs:
 
   espresso-test:
     name: "Espresso test"
-    runs-on: macos-latest
+    runs-on: self-hosted
     needs: build
     strategy:
       matrix:
