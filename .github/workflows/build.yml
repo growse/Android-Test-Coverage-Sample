@@ -21,8 +21,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
-      - uses: burrunan/gradle-cache-action@v1
-        name: Gradle cache
       - name: Assemble
         run: ./gradlew assembleDebug assembleAndroidTest --no-daemon --scan
         timeout-minutes: 10
@@ -41,8 +39,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
-      - uses: burrunan/gradle-cache-action@v1
-        name: Gradle cache
       - name: Espresso Test
         uses: reactivecircus/android-emulator-runner@v2
         timeout-minutes: 20
