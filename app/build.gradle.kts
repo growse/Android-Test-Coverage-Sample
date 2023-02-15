@@ -16,8 +16,8 @@ android {
             mapOf(
                 "clearPackageData" to "true",
                 "useTestStorageService" to "true",
-                "disableAnalytics" to "true"
-            )
+                "disableAnalytics" to "true",
+            ),
         )
     }
 
@@ -27,8 +27,8 @@ android {
             proguardFiles.addAll(
                 listOf(
                     getDefaultProguardFile("proguard-android-optimize.txt"),
-                    file("proguard-rules.pro")
-                )
+                    file("proguard-rules.pro"),
+                ),
             )
         }
         named("debug") {
@@ -37,8 +37,8 @@ android {
             proguardFiles.addAll(
                 listOf(
                     getDefaultProguardFile("proguard-android.txt"),
-                    file("proguard-rules.pro")
-                )
+                    file("proguard-rules.pro"),
+                ),
             )
             enableAndroidTestCoverage = true
             enableUnitTestCoverage = true
