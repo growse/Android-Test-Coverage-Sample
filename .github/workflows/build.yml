@@ -34,6 +34,10 @@ jobs:
       matrix:
         android-api: [33]
     steps:
+      - name: Update path to add android tools
+        run: |
+          echo "/home/runner/android-sdk/platform-tools/" >> $GITHUB_PATH
+          echo "/home/runner/android-sdk/cmdline-tools/latest/bin/ >> $GITHUB_PATH
       - name: Start emulator
         run: docker run -d -e "ADBKEY=$(cat ~/.android/adbkey)" --device /dev/kvm --publish 8554:8554/tcp -d --publish 5554:5554/tcp --publish 5555:5555/tcp  us-docker.pkg.dev/android-emulator-268719/images/30-google-x64-no-metrics:30.1.2
       - uses: actions/checkout@v3
