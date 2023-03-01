@@ -46,9 +46,6 @@ jobs:
         with:
           distribution: "temurin"
           java-version: 17
-      - name: adb connect
-        run: adb connect localhost:5555
-        timeout-minutes: 1
       - run: adb devices
       - name: wait for emulator boot
         run: adb wait-for-device && while [[ -z $(adb shell getprop sys.boot_completed) ]]; do echo "nopo" && sleep 1 ; done
