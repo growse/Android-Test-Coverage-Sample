@@ -48,6 +48,7 @@ jobs:
         with:
           distribution: "temurin"
           java-version: 17
+      - run: adb connect localhost:5555
       - run: adb devices
       - name: wait for emulator boot
         run: adb wait-for-device && while [[ -z $(adb shell getprop sys.boot_completed) ]]; do echo "no boot yet" && sleep 1 ; done
