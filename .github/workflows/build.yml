@@ -16,6 +16,12 @@ jobs:
     name: Build
     runs-on: self-hosted
     steps:
+      - name: Update path to add android tools
+        run: |
+          echo "/home/runner/android-sdk/platform-tools/" >> $GITHUB_PATH
+          echo "/home/runner/android-sdk/cmdline-tools/latest/bin/" >> $GITHUB_PATH
+      - name: Install Android SDK deps
+        run: sdkmanager "patcher;v4" "emulator" "build-tools;30.0.3" "platforms;android-33"
       - uses: actions/checkout@v3
       - name: Set up JDK 17
         uses: actions/setup-java@v3
@@ -42,6 +48,8 @@ jobs:
         run: adb start-server
       - name: Start emulator
         run: docker run -d -e "ADBKEY=$(cat ~/.android/adbkey)" --device /dev/kvm --publish 8554:8554/tcp -d --publish 5554:5554/tcp --publish 5555:5555/tcp growse/android-emulator-ci:30.1.2
+      - name: Install Android SDK deps
+        run: sdkmanager "patcher;v4" "emulator" "build-tools;30.0.3" "platforms;android-33"
       - uses: actions/checkout@v3
       - name: Set up JDK 17
         uses: actions/setup-java@v3
