@@ -13,7 +13,7 @@ name: Build & Espresso Test
 jobs:
   build:
     name: Build
-    runs-on: self-hosted
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -22,12 +22,25 @@ jobs:
           distribution: 'temurin'
           java-version: 17
       - name: Assemble
-        run: ./gradlew assembleDebug assembleAndroidTest --no-daemon --scan
+        run: |
+          ./gradlew \
+          assembleDebug \
+          assembleRelease \
+          assembleAndroidTest \
+          assembleReleaseUnitTest \
+          assembleAndroidTest \
+          :app:compileReleaseSources \
+          :app:packageReleaseBundle \
+          :app:assembleDebugAndroidTest --scan
         timeout-minutes: 10
+      - name: Unit Test
+        run: ./gradlew app:createDebugUnitTestCoverageReport
+      - name: Lint
+        run: ./gradlew lint
 
   espresso-test:
     name: "Espresso test"
-    runs-on: self-hosted
+    runs-on: macos-latest
     needs: build
     strategy:
       matrix:
