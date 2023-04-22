@@ -18,7 +18,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onContextMenuClosed(menu: Menu) {
-        Timber.i("onContextMenuClosed. This should not be covered, because there's no context menu!")
+        Timber.i(
+            "onContextMenuClosed. This should not be covered, because there's no context menu!"
+        )
         super.onContextMenuClosed(menu)
+    }
+    class Adder {
+        fun add(i1: Int, i2: Int): Int {
+            return i1 + i2
+        }
     }
 }
