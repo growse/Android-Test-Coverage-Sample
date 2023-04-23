@@ -21,8 +21,8 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
-      - name: Gradle Cache
-        uses: burrunan/gradle-cache-action@v1
+      - name: Gradle cache
+        uses: gradle/gradle-build-action@v2
       - name: Assemble
         run: |
           ./gradlew \
@@ -54,15 +54,41 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 17
-      - name: Gradle Cache
-        uses: burrunan/gradle-cache-action@v1
+
+      - name: Gradle cache
+        uses: gradle/gradle-build-action@v2
+
+      - name: AVD cache
+        uses: actions/cache@v3
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ matrix.android-api }}
+
+      - name: create AVD and generate snapshot for caching
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.android-api }}
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          profile: pixel_3a
+          target: google_apis
+          disable-animations: true
+          arch: x86_64
+          sdcard-path-or-size: 1000M
+          script: echo "Generated AVD snapshot for caching."
+
       - name: Espresso Test
         uses: reactivecircus/android-emulator-runner@v2
         timeout-minutes: 20
         with:
           api-level: ${{ matrix.android-api }}
           script: |
-            ./gradlew createDebugCoverageReport --no-daemon --scan
+            ./gradlew createDebugCoverageReport --scan
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           profile: pixel_3a
           target: google_apis
           disable-animations: true
