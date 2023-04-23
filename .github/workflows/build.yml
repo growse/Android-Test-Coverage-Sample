@@ -88,12 +88,13 @@ jobs:
           api-level: ${{ matrix.android-api }}
           script: |
             ./gradlew createDebugCoverageReport --scan
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           profile: pixel_3a
           target: google_apis
           disable-animations: true
           arch: x86_64
           sdcard-path-or-size: 1000M
+
       - name: Upload connected test result artifact
         uses: actions/upload-artifact@v3
         with:
