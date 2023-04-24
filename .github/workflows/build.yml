@@ -37,8 +37,26 @@ jobs:
         timeout-minutes: 10
       - name: Unit Test
         run: ./gradlew app:createDebugUnitTestCoverageReport
+      - name: Upload unit test coverage artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: unit test coverage
+          path: app/build/reports/coverage/test/debug/
+        if: always()
+      - name: Upload unit test result artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: unit test report
+          path: app/build/reports/tests/testDebugUnitTest/
+        if: always()
       - name: Lint
         run: ./gradlew lint
+      - name: Upload lint result artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: lint report
+          path: app/build/reports/lint-results-debug.html
+        if: always()
 
   espresso-test:
     name: "Espresso test"
