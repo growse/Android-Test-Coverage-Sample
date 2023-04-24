@@ -85,11 +85,11 @@ jobs:
             ~/.android/adb*
           key: avd-${{ matrix.android-api }}
 
-            #      - name: SDK cache
-            #        uses: actions/cache@v3
-            #        with:
-            #          path: ${{ env.ANDROID_HOME }}
-            #          key: sdkmanager-${{ matrix.android-api }}
+      - name: SDK cache
+        uses: actions/cache@v3
+        with:
+          path: /Users/runner/Library/Android/sdk
+          key: sdkmanager-${{ matrix.android-api }}
         
       - name: create AVD and generate snapshot for caching
         if: steps.avd-cache.outputs.cache-hit != 'true'
