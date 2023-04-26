@@ -106,6 +106,7 @@ jobs:
           api-level: ${{ matrix.android-api }}
           force-avd-creation: false
           script: |
+            adb uninstall com.example.testcoveragesample.test
             ./gradlew createDebugCoverageReport --scan
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           profile: pixel_3a
