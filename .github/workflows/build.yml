@@ -99,7 +99,6 @@ jobs:
           sdcard-path-or-size: 1000M
           script: echo "Generated AVD snapshot for caching."
 
-      - run: find . -name emulator
       - name: Espresso Test
         uses: reactivecircus/android-emulator-runner@v2
         timeout-minutes: 20
