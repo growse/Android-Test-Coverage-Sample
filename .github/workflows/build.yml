@@ -105,6 +105,7 @@ jobs:
         timeout-minutes: 20
         with:
           api-level: ${{ matrix.android-api }}
+          force-avd-creation: false
           script: |
             ./gradlew createDebugCoverageReport --scan
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
