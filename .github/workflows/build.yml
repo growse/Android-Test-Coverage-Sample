@@ -35,6 +35,7 @@ jobs:
           :app:packageReleaseBundle \
           :app:assembleDebugAndroidTest --scan
         timeout-minutes: 10
+
       - name: Unit Test
         run: ./gradlew app:createDebugUnitTestCoverageReport
       - name: JUnit Report Action
@@ -42,12 +43,14 @@ jobs:
         if: always()
         with:
           report_paths: "**/build/test-results/test*UnitTest/TEST-*.xml"
-      - run: cat ./app/build/reports/coverage/test/debug/report.xml
+
       - name: Upload coverage
         uses: codecov/codecov-action@v3
         with:
           files: ./app/build/reports/coverage/test/debug/report.xml
           flags: unittests
+      - name: Code Coverage Report
+        uses: romeovs/lcov-reporter-action@v0.2.11
 
       - name: Lint
         run: ./gradlew lint
@@ -106,7 +109,8 @@ jobs:
           api-level: ${{ matrix.android-api }}
           force-avd-creation: false
           script: |
-            adb uninstall com.example.testcoveragesample.test
+            adb uninstall com.example.testcoveragesample || echo "com.example.testcoveragesample not installed"
+            adb uninstall com.example.testcoveragesample.test || echo "com.example.testcoveragesample.test not installed"
             ./gradlew createDebugCoverageReport --scan
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           profile: pixel_3a
