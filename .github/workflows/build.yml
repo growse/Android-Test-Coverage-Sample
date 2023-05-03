@@ -50,7 +50,7 @@ jobs:
           files: ./app/build/reports/coverage/test/debug/report.xml
           flags: unittests
       - name: Code Coverage Report
-        uses: romeovs/lcov-reporter-action@v0.2.11
+        uses: romeovs/lcov-reporter-action@v0.3.1
 
       - name: Lint
         run: ./gradlew lint
