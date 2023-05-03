@@ -33,11 +33,11 @@ jobs:
           assembleAndroidTest \
           :app:compileReleaseSources \
           :app:packageReleaseBundle \
+          lint \
+          app:createDebugUnitTestCoverageReport \
           :app:assembleDebugAndroidTest --scan
         timeout-minutes: 10
 
-      - name: Unit Test
-        run: ./gradlew app:createDebugUnitTestCoverageReport
       - name: JUnit Report Action
         uses: mikepenz/action-junit-report@v3
         if: always()
@@ -49,8 +49,6 @@ jobs:
         with:
           files: ./app/build/reports/coverage/test/debug/report.xml
           flags: unittests
-      - name: Code Coverage Report
-        uses: romeovs/lcov-reporter-action@v0.2.11
 
       - name: Lint
         run: ./gradlew lint
@@ -119,6 +117,7 @@ jobs:
           sdcard-path-or-size: 1000M
           emulator-build: 9322596
           script: |
+            adb shell rm -rf /sdcard/googletest ;
             adb uninstall com.example.testcoveragesample || echo "com.example.testcoveragesample not installed"
             adb uninstall com.example.testcoveragesample.test || echo "com.example.testcoveragesample.test not installed"
             adb logcat -c
