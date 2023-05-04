@@ -115,7 +115,7 @@ jobs:
           sdcard-path-or-size: 1000M
           emulator-build: 9322596
           script: |
-            adb shell rm -rf /sdcard/googletest ;
+            adb shell rm -rf /sdcard/googletest || echo "Couldn't delete googletest folder"
             adb uninstall com.example.testcoveragesample || echo "com.example.testcoveragesample not installed"
             adb uninstall com.example.testcoveragesample.test || echo "com.example.testcoveragesample.test not installed"
             adb logcat -c
