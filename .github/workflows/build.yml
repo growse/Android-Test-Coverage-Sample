@@ -50,8 +50,6 @@ jobs:
           files: ./app/build/reports/coverage/test/debug/report.xml
           flags: unittests
 
-      - name: Lint
-        run: ./gradlew lint
       - name: Upload lint result artifact
         uses: actions/upload-artifact@v3
         with:
@@ -141,9 +139,19 @@ jobs:
         with:
           name: espresso-test-xml-${{ matrix.android-api }}
           path: app/build/outputs/androidTest-results/connected/*.xml
+      - name: JUnit Report Action
+        uses: mikepenz/action-junit-report@v3
+        if: always()
+        with:
+          report_paths: app/build/outputs/androidTest-results/connected/*.xml
       - name: Upload connected test coverage artifact
         uses: actions/upload-artifact@v3
         with:
           name: espresso-test-coverage-${{ matrix.android-api }}
           path: app/build/reports/coverage/androidTest/debug/
         if: always()
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: app/build/reports/coverage/androidTest/debug/connected/report.xml
+          flags: espressotests
