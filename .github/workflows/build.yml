@@ -126,6 +126,7 @@ jobs:
             # Stop capturing logcat output.
             kill $(cat logcat_file.pid)    || echo "::warning file=.github/workflows/ci.yml::Logcat process $(cat logcat_file.pid) didn't exist."
             kill $(cat logcat_console.pid) || echo "::warning file=.github/workflows/ci.yml::Logcat process $(cat logcat_console.pid) didn't exist."
+            adb logcat -d --buffer=crash --format=color
             exit $(cat gradle.exit)
 
       - name: Upload connected test result artifact
