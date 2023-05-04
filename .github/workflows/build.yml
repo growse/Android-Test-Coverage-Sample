@@ -49,6 +49,7 @@ jobs:
         with:
           files: ./app/build/reports/coverage/test/debug/report.xml
           flags: unittests
+          token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Upload lint result artifact
         uses: actions/upload-artifact@v3
@@ -157,3 +158,4 @@ jobs:
         with:
           files: app/build/reports/coverage/androidTest/debug/connected/report.xml
           flags: espressotests
+          token: ${{ secrets.CODECOV_TOKEN }}
