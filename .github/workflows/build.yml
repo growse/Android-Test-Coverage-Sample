@@ -38,7 +38,7 @@ jobs:
           :app:assembleDebugAndroidTest --scan
         timeout-minutes: 10
 
-      - name: JUnit Report Action
+      - name: Unit JUnit Report
         uses: mikepenz/action-junit-report@v3
         if: always()
         with:
@@ -142,7 +142,7 @@ jobs:
         with:
           name: espresso-test-xml-${{ matrix.android-api }}
           path: app/build/outputs/androidTest-results/connected/*.xml
-      - name: JUnit Report Action
+      - name: Espresso JUnit Report
         uses: mikepenz/action-junit-report@v3
         if: always()
         with:
