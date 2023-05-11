@@ -97,7 +97,7 @@ jobs:
           disable-animations: true
           arch: x86_64
           sdcard-path-or-size: 1000M
-          emulator-build: 9322596
+          emulator-build: 9936625
           script: echo "Generated AVD snapshot for caching."
 
       - name: Espresso Test
@@ -113,7 +113,7 @@ jobs:
           disable-animations: true
           arch: x86_64
           sdcard-path-or-size: 1000M
-          emulator-build: 9322596
+          emulator-build: 9936625
           script: |
             adb shell settings put global bluetooth_on 0
             adb shell rm -rf /sdcard/googletest || echo "Couldn't delete googletest folder"
