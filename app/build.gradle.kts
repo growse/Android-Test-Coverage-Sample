@@ -14,8 +14,8 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments.putAll(
             mapOf(
-                "clearPackageData" to "true",
-                "useTestStorageService" to "true",
+                "clearPackageData" to "false",
+                "useTestStorageService" to "false",
                 "disableAnalytics" to "true",
             ),
         )
