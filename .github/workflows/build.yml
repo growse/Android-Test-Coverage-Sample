@@ -93,7 +93,7 @@ jobs:
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none
           profile: pixel_3a
           target: google_apis
-          ram-size: 3096M
+          ram-size: 6000M
           disable-animations: true
           arch: x86_64
           sdcard-path-or-size: 1000M
@@ -109,7 +109,7 @@ jobs:
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none
           profile: pixel_3a
           target: google_apis
-          ram-size: 3096M
+          ram-size: 6000M
           disable-animations: true
           arch: x86_64
           sdcard-path-or-size: 1000M
@@ -123,7 +123,7 @@ jobs:
             adb logcat > emulator.log & echo $! > logcat_file.pid
             adb logcat "*:S MonitoringInstr:V AndroidJUnitRunner:V TestRequestBuilder:V TestExecutor:V TestRunner:V" --format=color & echo $! > logcat_console.pid
             echo 0 > gradle.exit # Set a default exit code.
-            ./gradlew createDebugCoverageReport --stacktrace --scan || echo $? > gradle.exit
+            ./gradlew createDebugCoverageReport --max-workers=1 --stacktrace --scan || echo $? > gradle.exit
             # Stop capturing logcat output.
             kill $(cat logcat_file.pid)    || echo "::warning file=.github/workflows/ci.yml::Logcat process $(cat logcat_file.pid) didn't exist."
             kill $(cat logcat_console.pid) || echo "::warning file=.github/workflows/ci.yml::Logcat process $(cat logcat_console.pid) didn't exist."
