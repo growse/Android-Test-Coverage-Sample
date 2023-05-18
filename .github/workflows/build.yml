@@ -86,8 +86,7 @@ jobs:
       #       ~/.android/adb*
       #     key: avd-${{ matrix.android-api }}
 
-      - run: echo $ANDROID_USER_HOME
-      - run: find $ANDROID_USER_HOME || "not found"
+      - run: export
 
       # - name: create AVD and generate snapshot for caching
       #   if: steps.avd-cache.outputs.cache-hit != 'true'
