@@ -74,35 +74,21 @@ jobs:
           distribution: "temurin"
           java-version: 17
 
-      # - name: Gradle cache
-      #   uses: gradle/gradle-build-action@v2
 
-      # - name: AVD cache
-      #   uses: actions/cache@v3
-      #   id: avd-cache
-      #   with:
-      #     path: |
-      #       ~/.android/avd/*
-      #       ~/.android/adb*
-      #     key: avd-${{ matrix.android-api }}
-
-      - run: export
-
-      # - name: create AVD and generate snapshot for caching
-      #   if: steps.avd-cache.outputs.cache-hit != 'true'
-      #   uses: reactivecircus/android-emulator-runner@v2
-      #   with:
-      #     api-level: ${{ matrix.android-api }}
-      #     force-avd-creation: false
-      #     emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none
-      #     profile: pixel_3a
-      #     target: google_apis
-      #     ram-size: 6000M
-      #     disable-animations: true
-      #     arch: x86_64
-      #     sdcard-path-or-size: 1000M
-      #     emulator-build: 9936625
-      #     script: echo "Generated AVD snapshot for caching."
+      - name: Create AVD and generate snapshot for caching
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.android-api }}
+          force-avd-creation: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none
+          profile: pixel_3a
+          target: google_apis
+          ram-size: 6000M
+          disable-animations: true
+          arch: x86_64
+          sdcard-path-or-size: 1000M
+          script: |
+            echo "Created AVD snapshot"
 
       - name: Espresso Test
         uses: reactivecircus/android-emulator-runner@v2
