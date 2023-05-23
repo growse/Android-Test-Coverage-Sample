@@ -41,8 +41,6 @@ jobs:
         with:
           report_paths: "**/build/test-results/test*UnitTest/TEST-*.xml"
 
-      - run: cat ./app/build/reports/coverage/test/debug/report.xml
-
       - name: Upload coverage
         uses: codecov/codecov-action@v3
         with:
