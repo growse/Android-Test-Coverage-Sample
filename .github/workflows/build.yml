@@ -90,6 +90,7 @@ jobs:
           avd-name: test-${{ matrix.android-api }}
           disable-animations: true
           arch: x86_64
+          cores: 2
           sdcard-path-or-size: 1000M
           script: |
             echo "Created AVD snapshot"
@@ -107,6 +108,7 @@ jobs:
           avd-name: test-${{ matrix.android-api }}
           disable-animations: true
           arch: x86_64
+          cores: 2
           sdcard-path-or-size: 1000M
           script: |
             adb shell settings put global bluetooth_on 0
