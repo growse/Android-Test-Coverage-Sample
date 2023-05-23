@@ -21,8 +21,6 @@ jobs:
         with:
           distribution: "temurin"
           java-version: 17
-      - name: Gradle cache
-        uses: gradle/gradle-build-action@v2
       - name: Assemble
         run: |
           ./gradlew \
@@ -63,9 +61,8 @@ jobs:
     needs: build
     strategy:
       matrix:
-        android-api: [33]
+        android-api: [ 33,32 ]
     steps:
-      - run: ls -laht /dev/kvm
       - run: echo "/android-sdk/platform-tools/" >> $GITHUB_PATH
       - uses: actions/checkout@v3
       - name: Set up JDK 17
@@ -78,7 +75,9 @@ jobs:
         id: check_snapshot_exists
         uses: andstor/file-existence-action@v2
         with:
-          files: "/android-sdk/user_home/avd/test.avd/snapshots/default_boot/screenshot.png"
+          files: "/android-sdk/user_home/avd/$AVD_NAME/snapshots/default_boot/screenshot.png"
+        env:
+          AVD_NAME: test-${{ matrix.android-api }}
 
       - name: Create AVD and generate snapshot for caching
         if: steps.check_snapshot_exists.outputs.files_exists == 'false'
@@ -90,6 +89,7 @@ jobs:
           profile: pixel_3a
           target: google_apis
           ram-size: 6000M
+          avd-name: test-${{ matrix.android-api }}
           disable-animations: true
           arch: x86_64
           sdcard-path-or-size: 1000M
@@ -106,6 +106,7 @@ jobs:
           profile: pixel_3a
           target: google_apis
           ram-size: 6000M
+          avd-name: test-${{ matrix.android-api }}
           disable-animations: true
           arch: x86_64
           sdcard-path-or-size: 1000M
