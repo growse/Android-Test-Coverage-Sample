@@ -75,7 +75,7 @@ jobs:
         id: check_snapshot_exists
         uses: andstor/file-existence-action@v2
         with:
-          files: "/android-sdk/user_home/avd/test-${{ matrix.android-api }}/snapshots/default_boot/screenshot.png"
+          files: "/android-sdk/user_home/avd/test-${{ matrix.android-api }}.avd/snapshots/default_boot/screenshot.png"
 
       - name: Create AVD and generate snapshot for caching
         if: steps.check_snapshot_exists.outputs.files_exists == 'false'
