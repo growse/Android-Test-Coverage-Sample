@@ -21,18 +21,19 @@ jobs:
         with:
           distribution: "temurin"
           java-version: 17
-      - name: Assemble
-        run: |
-          ./gradlew \
-          assembleDebug \
-          assembleRelease \
-          assembleAndroidTest \
-          assembleReleaseUnitTest \
-          :app:compileReleaseSources \
-          :app:packageReleaseBundle \
-          lint \
-          app:createDebugUnitTestCoverageReport \
-          :app:assembleDebugAndroidTest --scan --stacktrace
+      - name: Gradle build
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: |
+            assembleDebug
+            assembleRelease
+            assembleAndroidTest
+            assembleReleaseUnitTest
+            :app:compileReleaseSources
+            :app:packageReleaseBundle
+            lint
+            app:createDebugUnitTestCoverageReport
+            :app:assembleDebugAndroidTest --scan --stacktrace
         timeout-minutes: 10
 
       - name: Unit JUnit Report
@@ -63,7 +64,7 @@ jobs:
     needs: build
     strategy:
       matrix:
-        android-api: [ 33,32 ]
+        android-api: [ 33,32,31,30 ]
     steps:
       - run: echo "/android-sdk/platform-tools/" >> $GITHUB_PATH
       - uses: actions/checkout@v3
@@ -128,17 +129,22 @@ jobs:
             adb logcat -d --buffer=crash --format=color
             exit $(cat gradle.exit)
 
+      - name: Upload logcat
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: logcat-${{ matrix.android-api }}-${{ matrix.flavour }}
+          path: |
+            ${{ github.workspace }}/emulator.log
+            ${{ github.workspace }}/emulator-startup.log
+
       - name: Upload connected test result artifact
         uses: actions/upload-artifact@v3
         with:
           name: espresso-test-reports-${{ matrix.android-api }}
           path: app/build/reports/androidTests/connected/
         if: always()
-      - name: Upload connected test XML
-        uses: actions/upload-artifact@v3
-        with:
-          name: espresso-test-xml-${{ matrix.android-api }}
-          path: app/build/outputs/androidTest-results/connected/*.xml
+
       - name: Espresso JUnit Report
         uses: mikepenz/action-junit-report@v3
         if: always()
@@ -151,6 +157,7 @@ jobs:
           path: app/build/reports/coverage/androidTest/debug/
         if: always()
       - name: Upload coverage
+        if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/master') }}
         uses: codecov/codecov-action@v3
         with:
           files: app/build/reports/coverage/androidTest/debug/connected/report.xml
