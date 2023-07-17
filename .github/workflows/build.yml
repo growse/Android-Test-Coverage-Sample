@@ -63,6 +63,7 @@ jobs:
     runs-on: self-hosted
     needs: build
     strategy:
+      fail-fast: false
       matrix:
         android-api: [ 33,32,31,30 ]
     steps:
