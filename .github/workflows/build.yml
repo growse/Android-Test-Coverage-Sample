@@ -37,7 +37,7 @@ jobs:
         timeout-minutes: 10
 
       - name: Unit JUnit Report
-        uses: mikepenz/action-junit-report@v3
+        uses: mikepenz/action-junit-report@v4
         if: always()
         with:
           report_paths: "**/build/test-results/test*UnitTest/TEST-*.xml"
@@ -147,7 +147,7 @@ jobs:
         if: always()
 
       - name: Espresso JUnit Report
-        uses: mikepenz/action-junit-report@v3
+        uses: mikepenz/action-junit-report@v4
         if: always()
         with:
           report_paths: app/build/outputs/androidTest-results/connected/*.xml
