@@ -3,12 +3,12 @@ plugins {
     kotlin("android")
 }
 android {
-    compileSdk = 33
+    compileSdk = 34
     namespace = "com.example.testcoveragesample"
     defaultConfig {
         applicationId = "com.example.testcoveragesample"
         minSdk = 21
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
