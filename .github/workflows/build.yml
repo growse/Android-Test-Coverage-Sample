@@ -43,7 +43,7 @@ jobs:
           report_paths: "**/build/test-results/test*UnitTest/TEST-*.xml"
 
       - name: Upload coverage
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           files: ./app/build/reports/coverage/test/debug/report.xml
           flags: unittests
@@ -159,7 +159,7 @@ jobs:
         if: always()
       - name: Upload coverage
         if: ${{ (github.event_name == 'push' && github.ref == 'refs/heads/master') }}
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           files: app/build/reports/coverage/androidTest/debug/connected/report.xml
           flags: espressotests
