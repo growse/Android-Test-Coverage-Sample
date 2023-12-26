@@ -13,7 +13,7 @@ name: Build & Espresso Test
 jobs:
   build:
     name: Build
-    runs-on: self-hosted
+    runs-on: android-test-coverage-sample-runners
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 17
@@ -60,7 +60,7 @@ jobs:
 
   espresso-test:
     name: "Espresso test"
-    runs-on: self-hosted
+    runs-on: android-test-coverage-sample-runners
     needs: build
     strategy:
       fail-fast: false
