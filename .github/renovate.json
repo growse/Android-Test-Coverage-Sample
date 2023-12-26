@@ -1,22 +1,8 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base",
-    ":disableRateLimiting",
-    ":rebaseStalePrs",
-    ":disableDependencyDashboard"
-  ],
-  "assignees": [
-    "growse"
-  ],
-  "lockFileMaintenance": {
-    "enabled": true,
-    "automerge": true
-  },
-  "packageRules": [
-    {
-      "matchUpdateTypes": ["minor", "patch"],
-      "matchCurrentVersion": "!/^0/",
-      "automerge": true
-    }
+    "github>growse/renovate-template",
+    "github>growse/renovate-template:automerge-minor-and-patch",
+    "github>growse/renovate-template:automerge-github-actions"
   ]
 }
