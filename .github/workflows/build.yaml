@@ -15,20 +15,14 @@ jobs:
     name: Build
     runs-on: android-test-coverage-sample-runners
     steps:
-      - run: |
-          cat /home/runner/.m2/toolchains.xml
-          cat /home/runner/.m2/settings.xml
-          find /opt/hostedtoolcache
       - uses: actions/checkout@v4
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
           java-version: 17
-      - run: |
-          cat /home/runner/.m2/toolchains.xml
-          cat /home/runner/.m2/settings.xml
-          find /opt/hostedtoolcache
+        env:
+          RUNNER_TOOL_CACHE: /opt/hostedtoolcache
       - name: Gradle build
         uses: gradle/gradle-build-action@v2
         with:
