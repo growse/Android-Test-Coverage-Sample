@@ -18,7 +18,7 @@ jobs:
       - run: |
           cat /home/runner/.m2/toolchains.xml
           cat /home/runner/.m2/settings.xml
-          find /home/runner/_work/_tool/
+          find /opt/hostedtoolcache
       - uses: actions/checkout@v4
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -28,7 +28,7 @@ jobs:
       - run: |
           cat /home/runner/.m2/toolchains.xml
           cat /home/runner/.m2/settings.xml
-          find /home/runner/_work/_tool/
+          find /opt/hostedtoolcache
       - name: Gradle build
         uses: gradle/gradle-build-action@v2
         with:
