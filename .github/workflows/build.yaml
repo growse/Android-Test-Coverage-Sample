@@ -37,15 +37,13 @@ jobs:
         with:
           report_paths: "**/build/test-results/test*UnitTest/TEST-*.xml"
 
-      - run: |
-          find -name report.xml
-
       - name: Upload coverage
         uses: codecov/codecov-action@v3
         with:
           files: ./app/build/reports/coverage/test/debug/report.xml
           flags: unittests
           token: ${{ secrets.CODECOV_TOKEN }}
+          slug: parp
           verbose: true
           fail_ci_if_error: true
 
