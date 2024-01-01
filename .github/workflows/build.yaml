@@ -43,7 +43,7 @@ jobs:
           files: ./app/build/reports/coverage/test/debug/report.xml
           flags: unittests
           token: ${{ secrets.CODECOV_TOKEN }}
-          slug: parp
+          override_commit: ${{ github.sha }}
           verbose: true
           fail_ci_if_error: true
 
