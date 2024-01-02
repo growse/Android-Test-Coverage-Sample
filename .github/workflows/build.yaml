@@ -65,6 +65,7 @@ jobs:
     steps:
       - run: echo "/android-sdk/platform-tools/" >> $GITHUB_PATH
       - uses: actions/checkout@v4
+      - run: ls -laht /home/runner/.android
       - name: "Check snapshot exists"
         id: check_snapshot_exists
         uses: andstor/file-existence-action@v2
