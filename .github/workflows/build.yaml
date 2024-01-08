@@ -16,7 +16,7 @@ jobs:
     name: Build
     runs-on: self-hosted
     steps:
-      - run: find /android-sdk
+      - run: echo "/opt/java/openjdk/bin" >> $GITHUB_PATH
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       - name: Gradle build
         uses: gradle/gradle-build-action@982da8e78c05368c70dac0351bb82647a9e9a5d2 # v2
