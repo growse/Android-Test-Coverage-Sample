@@ -16,6 +16,8 @@ jobs:
     name: Build
     runs-on: self-hosted
     steps:
+      - name: Dump context
+        uses: crazy-max/ghaction-dump-context@v2.1.0
       - run: echo "/opt/java/openjdk/bin" >> $GITHUB_PATH
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       - name: Gradle build
@@ -80,7 +82,7 @@ jobs:
         with:
           api-level: ${{ matrix.android-api }}
           force-avd-creation: false
-          emulator-options: -no-window -gpu auto -noaudio -no-boot-anim -camera-back none -camera-front none
+          emulator-options: -no-window -gpu host -noaudio -no-boot-anim -camera-back none -camera-front none
           profile: pixel_3a
           target: google_apis
           ram-size: 4000M
@@ -98,7 +100,7 @@ jobs:
         with:
           api-level: ${{ matrix.android-api }}
           force-avd-creation: false
-          emulator-options: -no-snapshot-save -no-window -gpu auto -noaudio -no-boot-anim -camera-back none -camera-front none
+          emulator-options: -no-snapshot-save -no-window -gpu host -noaudio -no-boot-anim -camera-back none -camera-front none
           profile: pixel_3a
           target: google_apis
           ram-size: 4000M
