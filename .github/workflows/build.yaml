@@ -14,7 +14,7 @@ name: Build & Espresso Test
 jobs:
   build:
     name: Build
-    runs-on: android-test-coverage-sample-runners
+    runs-on: self-hosted
     steps:
       - run: find /android-sdk
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
@@ -58,7 +58,7 @@ jobs:
 
   espresso-test:
     name: "Espresso test"
-    runs-on: android-test-coverage-sample-runners
+    runs-on: self-hosted
     needs: build
     strategy:
       fail-fast: false
