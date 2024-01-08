@@ -80,14 +80,14 @@ jobs:
         with:
           api-level: ${{ matrix.android-api }}
           force-avd-creation: false
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none
+          emulator-options: -no-window -gpu auto -noaudio -no-boot-anim -camera-back none -camera-front none
           profile: pixel_3a
           target: google_apis
-          ram-size: 6000M
+          ram-size: 4000M
           avd-name: test-${{ matrix.android-api }}
           disable-animations: true
           arch: x86_64
-          cores: 2
+          cores: 1
           sdcard-path-or-size: 1000M
           script: |
             echo "Created AVD snapshot"
@@ -98,39 +98,21 @@ jobs:
         with:
           api-level: ${{ matrix.android-api }}
           force-avd-creation: false
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -camera-front none
+          emulator-options: -no-snapshot-save -no-window -gpu auto -noaudio -no-boot-anim -camera-back none -camera-front none
           profile: pixel_3a
           target: google_apis
-          ram-size: 6000M
+          ram-size: 4000M
           avd-name: test-${{ matrix.android-api }}
           disable-animations: true
           arch: x86_64
-          cores: 2
+          cores: 1
           sdcard-path-or-size: 1000M
           script: |
             adb shell settings put global bluetooth_on 0
             adb shell rm -rf /sdcard/googletest || echo "Couldn't delete googletest folder"
             adb uninstall com.example.testcoveragesample || echo "com.example.testcoveragesample not installed"
             adb uninstall com.example.testcoveragesample.test || echo "com.example.testcoveragesample.test not installed"
-            adb logcat -c
-            adb logcat > emulator.log & echo $! > logcat_file.pid
-            adb logcat "*:S MonitoringInstr:V AndroidJUnitRunner:V TestRequestBuilder:V TestExecutor:V TestRunner:V" --format=color & echo $! > logcat_console.pid
-            echo 0 > gradle.exit # Set a default exit code.
-            ./gradlew createDebugCoverageReport --max-workers=1 --stacktrace --scan || echo $? > gradle.exit
-            # Stop capturing logcat output.
-            kill $(cat logcat_file.pid)    || echo "::warning file=.github/workflows/ci.yml::Logcat process $(cat logcat_file.pid) didn't exist."
-            kill $(cat logcat_console.pid) || echo "::warning file=.github/workflows/ci.yml::Logcat process $(cat logcat_console.pid) didn't exist."
-            adb logcat -d --buffer=crash --format=color
-            exit $(cat gradle.exit)
-
-      - name: Upload logcat
-        if: always()
-        uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392 # v4
-        with:
-          name: logcat-${{ matrix.android-api }}-${{ matrix.flavour }}
-          path: |
-            ${{ github.workspace }}/emulator.log
-            ${{ github.workspace }}/emulator-startup.log
+            ./gradlew createDebugCoverageReport --max-workers=1 --stacktrace --scan --no-daemon
 
       - name: Upload connected test result artifact
         uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392 # v4
