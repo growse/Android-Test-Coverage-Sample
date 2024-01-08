@@ -17,7 +17,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Dump context
-        uses: crazy-max/ghaction-dump-context@v2.1.0
+        uses: crazy-max/ghaction-dump-context@8b55fa205ab4530d36f787a4de1009afaaa7f3b4 # v2.1.0
       - run: echo "/opt/java/openjdk/bin" >> $GITHUB_PATH
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       - name: Gradle build
