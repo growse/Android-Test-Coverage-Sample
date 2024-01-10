@@ -75,10 +75,11 @@ jobs:
       - name: Gradle build
         uses: gradle/gradle-build-action@982da8e78c05368c70dac0351bb82647a9e9a5d2 # v2
         with:
+          arguments: |
+            assembleAndroidTest
           cache-disabled: true
           dependency-graph: generate
         timeout-minutes: 10
-      - run: sh -c "./gradlew assembleAndroidTest && touch /tmp/sleep.txt" &
 
       - name: "Check snapshot exists"
         id: check_snapshot_exists
@@ -124,7 +125,6 @@ jobs:
             adb shell rm -rf /sdcard/googletest || echo "Couldn't delete googletest folder"
             adb uninstall com.example.testcoveragesample || echo "com.example.testcoveragesample not installed"
             adb uninstall com.example.testcoveragesample.test || echo "com.example.testcoveragesample.test not installed"
-            while [ ! -f /tmp/sleep.txt ]; do sleep 1; done
             ./gradlew createDebugCoverageReport --max-workers=1 --stacktrace --scan --no-daemon
 
       - name: Upload connected test result artifact
