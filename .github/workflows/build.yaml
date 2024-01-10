@@ -24,7 +24,7 @@ jobs:
         uses: gradle/gradle-build-action@982da8e78c05368c70dac0351bb82647a9e9a5d2 # v2
         with:
           cache-disabled: true
-          dependency-graph: generate
+          dependency-graph: generate-and-submit
           arguments: |
             assembleDebug
             assembleRelease
@@ -69,6 +69,7 @@ jobs:
       matrix:
         android-api: [33, 32, 31, 30]
     steps:
+      - run: echo "/opt/java/openjdk/bin" >> $GITHUB_PATH
       - run: echo "/android-sdk/platform-tools/" >> $GITHUB_PATH
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       - name: Gradle build
