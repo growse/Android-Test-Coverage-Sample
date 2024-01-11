@@ -131,7 +131,7 @@ jobs:
         uses: mikepenz/action-junit-report@0831a82caad2465c31c6dd929978f640cb42556c # v4
         if: always()
         with:
-          report_paths: app/build/outputs/androidTest-results/connected/*.xml
+          report_paths: app/build/outputs/androidTest-results/connected/debug/*.xml
       - name: Upload connected test coverage artifact
         uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392 # v4
         with:
