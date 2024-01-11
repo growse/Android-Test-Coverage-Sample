@@ -118,7 +118,7 @@ jobs:
             adb shell rm -rf /sdcard/googletest || echo "Couldn't delete googletest folder"
             adb uninstall com.example.testcoveragesample || echo "com.example.testcoveragesample not installed"
             adb uninstall com.example.testcoveragesample.test || echo "com.example.testcoveragesample.test not installed"
-            ./gradlew createDebugCoverageReport --max-workers=1 --stacktrace --scan --daemon
+            ./gradlew createDebugCoverageReport --max-workers=1 --stacktrace --scan --daemon --info
 
       - name: Upload connected test result artifact
         uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392 # v4
