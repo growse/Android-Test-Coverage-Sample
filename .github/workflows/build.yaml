@@ -61,7 +61,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        android-api: [34]
+        android-api: [34, 24, 21]
     steps:
       - run: echo "/opt/java/openjdk/bin" >> $GITHUB_PATH
       - run: echo "/android-sdk/platform-tools/" >> $GITHUB_PATH
