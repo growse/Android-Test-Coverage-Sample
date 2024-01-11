@@ -35,7 +35,8 @@ jobs:
         uses: mikepenz/action-junit-report@0831a82caad2465c31c6dd929978f640cb42556c # v4
         if: always()
         with:
-          report_paths: "**/build/test-results/test*UnitTest/TEST-*.xml"
+          report_paths: "**/TEST-*.xml"
+          detailed_summary: true
 
       - name: Upload coverage
         if: ${{ (github.event_name == 'push' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)) }}
@@ -61,7 +62,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        android-api: [34, 24, 21]
+        android-api: [ 34, 24, 21 ]
     steps:
       - run: echo "/opt/java/openjdk/bin" >> $GITHUB_PATH
       - run: echo "/android-sdk/platform-tools/" >> $GITHUB_PATH
@@ -131,7 +132,8 @@ jobs:
         uses: mikepenz/action-junit-report@0831a82caad2465c31c6dd929978f640cb42556c # v4
         if: always()
         with:
-          report_paths: app/build/outputs/androidTest-results/connected/debug/*.xml
+          report_paths: "**/TEST-*.xml"
+          detailed_summary: true
       - name: Upload connected test coverage artifact
         uses: actions/upload-artifact@c7d193f32edcb7bfad88892161225aeda64e9392 # v4
         with:
