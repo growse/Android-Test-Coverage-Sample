@@ -23,7 +23,6 @@ jobs:
       - name: Gradle build
         uses: gradle/gradle-build-action@982da8e78c05368c70dac0351bb82647a9e9a5d2 # v2
         with:
-          cache-disabled: true
           dependency-graph: generate-and-submit
           arguments: |
             assembleDebug
@@ -72,7 +71,6 @@ jobs:
         with:
           arguments: |
             assembleAndroidTest --daemon
-          cache-disabled: true
           dependency-graph: generate
         timeout-minutes: 10
 
