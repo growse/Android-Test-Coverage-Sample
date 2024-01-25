@@ -21,17 +21,21 @@ jobs:
           distribution: "temurin" # See 'Supported distributions' for available options
           java-version: "17"
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
-      - name: Gradle build
+      - name: Gradle setup
         uses: gradle/gradle-build-action@a8f75513eafdebd8141bd1cd4e30fcd194af8dfa # v2
         with:
           dependency-graph: generate-and-submit
-          arguments: |
-            assembleDebug
-            assembleRelease
-            lint
-            app:createDebugUnitTestCoverageReport --scan --stacktrace
-        timeout-minutes: 10
+      - name: Configure gradle properties
+        run: |
+          mkdir ~/.gradle
+          gradle_properties=("org.gradle.configuration-cache=false" "org.gradle.parallel=true" "org.gradle.caching=true" 'org.gradle.jvmargs=-Xmx3096M -Dkotlin.daemon.jvm.options\="-Xmx2048M" -XX\:+HeapDumpOnOutOfMemoryError -Dfile.encoding\=UTF-8 -XX\:+UseParallelGC')
+          for gradle_property in "${gradle_properties[@]}" ; do
+            grep -qxF "$gradle_property" ~/.gradle/gradle.properties || echo "$gradle_property" >>/home/runner/.gradle/gradle.properties
+          done
 
+      - name: Gradle build
+        run: ./gradlew assembleDebug assembleRelease lint app:createDebugUnitTestCoverageReport --scan --stacktrace
+        timeout-minutes: 10
       - name: Unit JUnit Report
         uses: mikepenz/action-junit-report@b1b7f659602565970688b2e2588738b9398e895d # v4
         if: always()
@@ -76,9 +80,6 @@ jobs:
           distribution: "temurin" # See 'Supported distributions' for available options
           java-version: "17"
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
-
-      - name: Gradle cache
-        uses: gradle/gradle-build-action@a8f75513eafdebd8141bd1cd4e30fcd194af8dfa # v2
 
       - name: Gradle build
         uses: gradle/gradle-build-action@a8f75513eafdebd8141bd1cd4e30fcd194af8dfa # v2
