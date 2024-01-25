@@ -14,11 +14,12 @@ name: Build & Espresso Test
 jobs:
   build:
     name: Build
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
-      - name: Dump context
-        uses: crazy-max/ghaction-dump-context@8b55fa205ab4530d36f787a4de1009afaaa7f3b4 # v2.1.0
-      - run: echo "/opt/java/openjdk/bin" >> $GITHUB_PATH
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin" # See 'Supported distributions' for available options
+          java-version: "17"
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       - name: Gradle build
         uses: gradle/gradle-build-action@a8f75513eafdebd8141bd1cd4e30fcd194af8dfa # v2
@@ -58,16 +59,22 @@ jobs:
 
   espresso-test:
     name: "Espresso test"
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: build
     strategy:
       fail-fast: false
       matrix:
-        android-api: [ 34, 24, 21 ]
+        android-api: [34, 24, 21]
     steps:
-      - run: echo "/opt/java/openjdk/bin" >> $GITHUB_PATH
-      - run: echo "/android-sdk/platform-tools/" >> $GITHUB_PATH
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin" # See 'Supported distributions' for available options
+          java-version: "17"
       - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+
+      - name: Gradle cache
+        uses: gradle/gradle-build-action@v2
+
       - name: Gradle build
         uses: gradle/gradle-build-action@a8f75513eafdebd8141bd1cd4e30fcd194af8dfa # v2
         with:
@@ -76,15 +83,18 @@ jobs:
           dependency-graph: generate
         timeout-minutes: 10
 
-      - name: "Check snapshot exists"
-        id: check_snapshot_exists
-        uses: andstor/file-existence-action@20b4d2e596410855db8f9ca21e96fbe18e12930b # v2
+      - name: AVD cache
+        uses: actions/cache@v3
+        id: avd-cache
         with:
-          files: "/android-sdk/user_home/avd/test-${{ matrix.android-api }}.avd/snapshots/default_boot/screenshot.png"
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ matrix.android-api }}
 
       - name: Create AVD and generate snapshot for caching
-        if: steps.check_snapshot_exists.outputs.files_exists == 'false'
         uses: reactivecircus/android-emulator-runner@eaf4c246b5ce90db0e68560f6443978a636797aa # v2
+        if: steps.avd-cache.outputs.cache-hit != 'true'
         with:
           api-level: ${{ matrix.android-api }}
           force-avd-creation: false
