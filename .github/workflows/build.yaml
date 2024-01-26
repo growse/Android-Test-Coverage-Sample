@@ -11,6 +11,9 @@ name: Build & Espresso Test
     branches:
       - main
 
+env:
+  GRADLE_OPTS: "-Dorg.gradle.daemon=true -Dorg.gradle.configuration-cache=false -Dorg.gradle.parallel=true -Dorg.gradle.caching=true -Dorg.gradle.jvmargs='-Xmx3096M -Dkotlin.daemon.jvm.options=-Xmx2048M -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC'"
+
 jobs:
   build:
     name: Build
@@ -26,15 +29,6 @@ jobs:
         with:
           dependency-graph: generate-and-submit
           cache-read-only: ${{ github.ref != format('refs/heads/{0}', github.event.repository.default_branch) }}
-
-      - name: Configure gradle properties
-        run: |
-          mkdir -p ~/.gradle
-          gradle_properties=("org.gradle.configuration-cache=false" "org.gradle.parallel=true" "org.gradle.caching=true" 'org.gradle.jvmargs=-Xmx3096M -Dkotlin.daemon.jvm.options\="-Xmx2048M" -XX\:+HeapDumpOnOutOfMemoryError -Dfile.encoding\=UTF-8 -XX\:+UseParallelGC')
-          for gradle_property in "${gradle_properties[@]}" ; do
-            grep -qxF "$gradle_property" ~/.gradle/gradle.properties || echo "$gradle_property" >>/home/runner/.gradle/gradle.properties
-          done
-          cat ~/.gradle/gradle.properties
 
       - name: Gradle build
         run: ./gradlew assembleDebug assembleRelease lint app:createDebugUnitTestCoverageReport :app:packageDebugAndroidTest :app:packageDebug :app:compileDebugAndroidTestKotlin :app:compileDebugAndroidTestJavaWithJavac --scan --stacktrace
@@ -91,15 +85,6 @@ jobs:
           cache-read-only: true
           dependency-graph: generate
         timeout-minutes: 10
-
-      - name: Configure gradle properties
-        run: |
-          mkdir -p ~/.gradle
-          gradle_properties=("org.gradle.configuration-cache=false" "org.gradle.parallel=true" "org.gradle.caching=true" 'org.gradle.jvmargs=-Xmx3096M -Dkotlin.daemon.jvm.options\="-Xmx2048M" -XX\:+HeapDumpOnOutOfMemoryError -Dfile.encoding\=UTF-8 -XX\:+UseParallelGC')
-          for gradle_property in "${gradle_properties[@]}" ; do
-            grep -qxF "$gradle_property" ~/.gradle/gradle.properties || echo "$gradle_property" >>/home/runner/.gradle/gradle.properties
-          done
-          cat ~/.gradle/gradle.properties
 
       - name: AVD cache
         uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2 # v4
