@@ -63,7 +63,7 @@ jobs:
           fail_ci_if_error: true
 
       - name: Upload lint result artifact
-        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4
         with:
           name: lint report
           path: app/build/reports/lint-results-debug.html
@@ -146,7 +146,7 @@ jobs:
             ./gradlew createDebugCoverageReport --max-workers=1 --stacktrace --scan
 
       - name: Upload connected test result artifact
-        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4
         with:
           name: espresso-test-reports-${{ matrix.android-api }}
           path: app/build/reports/androidTests/connected/
@@ -161,7 +161,7 @@ jobs:
           include_passed: true
 
       - name: Upload connected test coverage artifact
-        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4
+        uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4
         with:
           name: espresso-test-coverage-${{ matrix.android-api }}
           path: app/build/reports/coverage/androidTest/debug/
