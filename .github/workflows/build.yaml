@@ -106,7 +106,7 @@ jobs:
           key: avd-${{ matrix.android-api }}
 
       - name: Create AVD and generate snapshot for caching
-        uses: reactivecircus/android-emulator-runner@6b0df4b0efb23bb0ec63d881db79aefbc976e4b2 # v2
+        uses: reactivecircus/android-emulator-runner@77986be26589807b8ebab3fde7bbf5c60dabec32 # v2
         if: steps.avd-cache.outputs.cache-hit != 'true'
         with:
           api-level: ${{ matrix.android-api }}
@@ -124,7 +124,7 @@ jobs:
             echo "Created AVD snapshot"
 
       - name: Espresso Test
-        uses: reactivecircus/android-emulator-runner@6b0df4b0efb23bb0ec63d881db79aefbc976e4b2 # v2
+        uses: reactivecircus/android-emulator-runner@77986be26589807b8ebab3fde7bbf5c60dabec32 # v2
         timeout-minutes: 20
         with:
           api-level: ${{ matrix.android-api }}
