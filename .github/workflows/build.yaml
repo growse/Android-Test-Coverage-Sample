@@ -23,7 +23,7 @@ jobs:
         with:
           distribution: "temurin" # See 'Supported distributions' for available options
           java-version: "17"
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
       - name: Gradle setup
         uses: gradle/gradle-build-action@4c39dd82cd5e1ec7c6fa0173bb41b4b6bb3b86ff # v3
         with:
@@ -87,7 +87,7 @@ jobs:
         with:
           distribution: "temurin" # See 'Supported distributions' for available options
           java-version: "17"
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4
 
       - name: Gradle setup
         uses: gradle/gradle-build-action@4c39dd82cd5e1ec7c6fa0173bb41b4b6bb3b86ff # v3
