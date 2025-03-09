@@ -45,7 +45,7 @@ jobs:
         timeout-minutes: 10
 
       - name: Unit JUnit Report
-        uses: mikepenz/action-junit-report@b14027d33d3a745ccc4d6a12f649e83110b5a373 # v5
+        uses: mikepenz/action-junit-report@97744eca465b8df9e6e33271cb155003f85327f1 # v5
         if: always()
         with:
           report_paths: "**/TEST-*.xml"
@@ -153,7 +153,7 @@ jobs:
         if: always()
 
       - name: Espresso JUnit Report
-        uses: mikepenz/action-junit-report@b14027d33d3a745ccc4d6a12f649e83110b5a373 # v5
+        uses: mikepenz/action-junit-report@97744eca465b8df9e6e33271cb155003f85327f1 # v5
         if: always()
         with:
           report_paths: "**/TEST-*.xml"
