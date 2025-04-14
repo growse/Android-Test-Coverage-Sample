@@ -54,7 +54,7 @@ jobs:
 
       - name: Upload coverage
         if: ${{ (github.event_name == 'push' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)) }}
-        uses: codecov/codecov-action@cf3f51a67d2820f7a7cefa0831889fbbef41ca57 # v5
+        uses: codecov/codecov-action@ad3126e916f78f00edff4ed0317cf185271ccc2d # v5
         with:
           files: ./app/build/reports/coverage/test/debug/report.xml
           flags: unittests
@@ -168,7 +168,7 @@ jobs:
         if: always()
       - name: Upload coverage
         if: ${{ (github.event_name == 'push' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)) }}
-        uses: codecov/codecov-action@cf3f51a67d2820f7a7cefa0831889fbbef41ca57 # v5
+        uses: codecov/codecov-action@ad3126e916f78f00edff4ed0317cf185271ccc2d # v5
         with:
           files: app/build/reports/coverage/androidTest/debug/connected/report.xml
           flags: espressotests
