@@ -97,7 +97,7 @@ jobs:
         timeout-minutes: 10
 
       - name: AVD cache
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4
+        uses: actions/cache@0400d5f644dc74513175e3cd8d07132dd4860809 # v4
         id: avd-cache
         with:
           path: |
